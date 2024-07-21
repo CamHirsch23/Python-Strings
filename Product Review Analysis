@@ -1,0 +1,51 @@
+"""
+Product Review Analysis Module
+
+This module contains functions for analyzing product reviews.
+"""
+
+reviews_list = [
+    "This product is really good. I'm impressed with its quality.",
+    "The performance of this product is excellent. Highly recommended!",
+    "I had a bad experience with this product. It didn't meet my expectations.",
+    "Poor quality product. Wouldn't recommend it to anyone.",
+    "The product was average. Nothing extraordinary about it."
+]
+
+keywords = ["good", "excellent", "bad", "poor", "average"]
+
+for review in reviews_list:
+    for keyword in keywords:
+        if keyword in review:
+            review = review.replace(keyword, keyword.upper())
+    print(review)
+
+positive_words = ["good", "excellent", "great", "awesome", "fantastic", "superb", "amazing"]
+negative_words = ["bad", "poor", "terrible", "horrible", "awful", "disappointing", "subpar"]
+
+def tally_sentiment(review):
+    positive_count = sum(1 for word in review.split() if word.lower() in positive_words)
+    negative_count = sum(1 for word in review.split() if word.lower() in negative_words)
+    return positive_count, negative_count
+
+for review in reviews_list:
+    pos_count, neg_count = tally_sentiment(review)
+    print(f"Review: {review}")
+    print(f"Positive Words: {pos_count}")
+    print(f"Negative Words: {neg_count}")
+    print()
+
+
+def create_summary(review):
+    if len(review) <= 30:
+        return review
+    else:
+        summary_text = review[:30]
+        last_space_index = summary_text.rfind(' ')
+        if last_space_index != -1:
+            summary_text = summary_text[:last_space_index]
+        return summary_text + "..."
+
+for review in reviews_list:
+    summary_text = create_summary(review)
+    print(summary_text)
